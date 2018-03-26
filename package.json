@@ -2,9 +2,10 @@
   "name": "honey",
   "version": "0.1.0",
   "private": true,
-  "main":"App.js",
+  "main": "App.js",
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
