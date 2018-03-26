@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
-import PropTypes from 'prop-types';
-import React from 'react';
+
 
 const renderData = item => Object.keys(item).map((value) => {
   const row = `${value} has ${item[value].issueCount} thing or things`;
@@ -11,7 +11,7 @@ const renderData = item => Object.keys(item).map((value) => {
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    this.props.github.fetchIssues();
+    this.props.github.fetchGithubIssues();
   }
 
   render() {

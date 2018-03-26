@@ -2,7 +2,7 @@
   "name": "honey",
   "version": "0.1.0",
   "private": true,
-  "main": "App.js",
+  "main": "App.jsx",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "eslint": "^4.19.1",
@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/.bin/eslint src/* --fix"
+    "precommit": "./node_modules/.bin/eslint src/* --fix"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",
