@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import configureStore from './store/configureStore';
 import App from './App';
 
+
 const store = configureStore();
 
 render(

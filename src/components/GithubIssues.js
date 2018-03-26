@@ -4,29 +4,30 @@ import * as githubActions from '../actions/githubActions';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+const renderData = (item) => {
+    return Object.keys(item).map(value => {
+        const row = `${value} has ${item[value].issueCount} thing or things`
+        return <div key={item}>{row}</div>;
+    });
+}
+
 class GithubIssues extends React.Component {
-    
     componentWillMount() {
         this.props.github.fetchIssues();
     }
 
-    renderData(item, index) {
-        console.log(item)
-        return <div key={index}>{JSON.stringify(item)}</div>;
-    }
-
     render() {
-        if(!this.props.issues){
+        if (!this.props.issues){
             return (
                 <div>
                     Loading Issues...
                 </div>
             )
-        }else{
+        } else {
             return (
                 <div>
                     {
-                        this.props.issues.map(this.renderData)
+                      renderData(this.props.issues)
                     }
                 </div>
             )
@@ -35,9 +36,9 @@ class GithubIssues extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log('NewState: ', state);
+    console.log(state)
     return {
-        issues: state.github.timescomponents,
+        issues: state.github
     };
 }
 
