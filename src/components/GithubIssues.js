@@ -3,11 +3,12 @@ import {bindActionCreators} from 'redux';
 import * as githubActions from '../actions/githubActions';
 import PropTypes from 'prop-types';
 import React from 'react';
+import TextComponent from './TextComponent';
 
 const renderData = (item) => {
     return Object.keys(item).map(value => {
         const row = `${value} has ${item[value].issueCount} thing or things`
-        return <div key={item}>{row}</div>;
+        return <TextComponent children={value} size={item[value].issueCount} key={item} />;
     });
 }
 

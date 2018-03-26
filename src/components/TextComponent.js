@@ -3,7 +3,7 @@ import React from 'react';
 const TextComponent = ({children, size}) => {
     const styles = {
         color: calculateColour(size),
-        fontSize: `${size}px`
+        fontSize: `${size || 10}px`
     };
 
     return (

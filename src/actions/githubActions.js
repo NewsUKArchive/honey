@@ -16,7 +16,7 @@ export function fetchIssues() {
                 const value = repositories[key];
                 console.log(`Key: ${key} Value: ${value}`);
 
-                fetchRequests.push(new Promise((resolve, reject) => {
+                fetchRequests.push(new Promise(resolve => {
                     axios
                         .get(`https://api.github.com/repos/${value}/issues?state=all`)
                         .then((result) => {
@@ -32,17 +32,13 @@ export function fetchIssues() {
         Promise
             .all(fetchRequests)
             .then((results) => {
-
-                let test =  results.reduce((object, currentValue) => {
-
+                return results.reduce((object, currentValue) => {
                     object = Object.assign(object, {
                         [currentValue.project]: currentValue.issues
                     });
 
                     return object;
                 }, {});
-        
-                return test;
             })
             .then(payload => {
                 console.log('payload:', payload)
@@ -51,13 +47,5 @@ export function fetchIssues() {
             .catch((error) => {
                 dispatch({type: GITHUB_FETCH_ISSUES, payload: error, error: true});
             })
-
-            // axios
-            // .get('https://api.github.com/repos/newsuk/times-components/issues?state=all')
-            //     .then((result) => {         dispatch({             type:
-            // GITHUB_FETCH_ISSUES,             payload: {                 timescomponents:
-            // result.data,                 dextrose: dextroseIssues             } }); })
-            // .catch((error) => {         dispatch({type: GITHUB_FETCH_ISSUES, payload:
-            // error, error: true});     });
     };
 }
