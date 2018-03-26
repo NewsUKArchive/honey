@@ -11,7 +11,8 @@ class GithubIssues extends React.Component {
     }
 
     renderData(item, index) {
-        return <div key={index}>{item.issue}</div>;
+        console.log(item)
+        return <div key={index}>{JSON.stringify(item)}</div>;
     }
 
     render() {
@@ -36,7 +37,7 @@ class GithubIssues extends React.Component {
 function mapStateToProps(state) {
     console.log('NewState: ', state);
     return {
-        issues: state.github.issues,
+        issues: state.github.timescomponents,
     };
 }
 
