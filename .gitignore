@@ -57,8 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-<<<<<<< HEAD
 .vscode/
-=======
- .vscode/launch.json
->>>>>>> master
+
+# React build dir
+build/
