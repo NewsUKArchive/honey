@@ -4,8 +4,19 @@ import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
 import TextComponent from './TextComponent';
 
-const renderData = item =>
-  Object.keys(item).map(value => <TextComponent text={value} size={item[value].issueCount} key={item} />);
+const renderData = items => {
+
+  Object.keys(items).map(repository => {
+    const { issueCount } = items[repository].issues;
+    console.log(issueCount)
+
+    return <TextComponent text={repository} />
+  })
+}
+  
+
+// Object.keys(item).map(value =>
+//     <TextComponent text={value} size={item[value].issues.totalCount} key={item} />);
 
 class GithubIssues extends React.Component {
   componentWillMount() {

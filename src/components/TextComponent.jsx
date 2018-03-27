@@ -12,6 +12,7 @@ const calculateColour = (number) => {
 };
 
 const TextComponent = ({ text, size }) => {
+  console.log(text, size)
   const styles = {
     color: calculateColour(size),
     fontSize: `${size || defaultTextSize}px`,
