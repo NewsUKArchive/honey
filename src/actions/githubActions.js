@@ -1,16 +1,21 @@
-import timesComponentIssues from  './../data/mockgithubissuesTimesComponent.json';
-import dextroseIssues from  './../data/mockgithubissuesDextrose.json';
+import repositories from '../config/repositories';
+import requestBuilder from '../helpers/requestBuilder';
 
-export const GITHUB_FETCH_ISSUES = 'GITHUB_ISSUES_FETCH';
+export const GITHUB_FETCH_ISSUES = 'GITHUB_FETCH_ISSUES';
 
 export function fetchIssues() {
     return (dispatch) => {
-        dispatch({
-            type: GITHUB_FETCH_ISSUES,
-            payload: {
-                timescomponents: timesComponentIssues,
-                dextrose: dextroseIssues
-            }
-        });
+
+        Promise
+            .all(requestBuilder.buildIssueRequests(repositories))
+            .then((results) => {
+                return results.reduce((object, currentValue) => {
+                    return Object.assign(object, {
+                        [currentValue.project]: currentValue.issues
+                    });
+                }, {});
+            })
+            .then(payload => dispatch({type: GITHUB_FETCH_ISSUES, payload}))
+            .catch((error) => dispatch({type: GITHUB_FETCH_ISSUES, payload: error, error: true}));
     };
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 
+const defaultTextSize = 10
+
 const TextComponent = ({children, size}) => {
     const styles = {
         color: calculateColour(size),
-        fontSize: `${size}px`
+        fontSize: `${size || defaultTextSize}px`
     };
 
     return (
