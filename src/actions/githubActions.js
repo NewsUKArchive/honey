@@ -18,5 +18,4 @@ export function fetchIssues() {
             .then(payload => dispatch({type: GITHUB_FETCH_ISSUES, payload}))
             .catch((error) => dispatch({type: GITHUB_FETCH_ISSUES, payload: error, error: true}));
     };
-
 }
