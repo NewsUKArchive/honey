@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import github from './githubReducer';
 
 const rootReducer = combineReducers({
-  github
+  github,
 });
 
 export default rootReducer;

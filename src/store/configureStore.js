@@ -1,11 +1,14 @@
-import {createStore, applyMiddleware} from 'redux';
-import rootReducer from '../reducers/allReducers';
-import thunk from 'redux-thunk';
+/* global window */
 
-export default function configureStore(config) {
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers/allReducers';
+
+export default function configureStore() {
   return createStore(
     rootReducer,
+    // eslint-disable-next-line no-underscore-dangle
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
   );
 }
