@@ -3,7 +3,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
 
-
 const renderData = item => Object.keys(item).map((value) => {
   const row = `${value} has ${item[value].issueCount} thing or things`;
   return <div key={item}>{row}</div>;
@@ -24,16 +23,13 @@ class GithubIssues extends React.Component {
     }
     return (
       <div>
-        {
-                      renderData(this.props.issues)
-                    }
+        { renderData(this.props.issues) }
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     issues: state.github,
   };
