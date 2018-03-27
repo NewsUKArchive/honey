@@ -1,7 +1,7 @@
 import repositories from '../config/repositories';
 import requestBuilder from '../helpers/requestBuilder';
 
-export const GITHUB_FETCH_ISSUES = 'GITHUB_ISSUES_FETCH';
+export const GITHUB_FETCH_ISSUES = 'GITHUB_FETCH_ISSUES';
 
 export function fetchIssues() {
     return (dispatch) => {
