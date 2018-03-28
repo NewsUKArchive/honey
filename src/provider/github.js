@@ -6,6 +6,7 @@ const apolloFetch = createApolloFetch({ uri });
 
 apolloFetch.use(({ options }, next) => {
   if (!options.headers) {
+    // eslint-disable-next-line no-param-reassign
     options.headers = {
       authorization: 'bearer ebfe12b0eb6a2bffd50a1bcc24309ba2b48dbaf7',
     };
