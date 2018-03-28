@@ -35,7 +35,7 @@ const getRequest = project =>
       .catch(err => resolve(err));
   });
 
-const getIssueCountForProjects = projects =>
+const getIssueCountFor = projects =>
   Object.values(projects).map(project => (getRequest(project)));
 
-export default getIssueCountForProjects;
+export default { getIssueCountFor };
