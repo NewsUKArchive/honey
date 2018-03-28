@@ -5,13 +5,10 @@ import * as githubActions from '../actions/githubActions';
 import TextComponent from './TextComponent';
 
 const renderData = items => {
-
-  Object.keys(items).map(repository => {
-    const { issueCount } = items[repository].issues;
-    console.log(issueCount)
-
-    return <TextComponent text={repository} />
-  })
+  console.log('hi')
+  for (const thing in items) {
+    console.log(thing)
+  }
 }
   
 
