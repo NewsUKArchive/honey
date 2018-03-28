@@ -1,5 +1,14 @@
 {
-    "times-components": "newsuk/times-components",
-    "dextrose": "newsuk/dextrose",
-    "honey": "newsuk/honey"
+    "times-components": {
+        "owner": "newsuk",
+        "repository": "times-components"
+    },
+    "dextrose": {
+        "owner": "newsuk",
+        "repository": "dextrose"
+    },
+    "honey": {
+        "owner": "newsuk",
+        "repository": "honey"
+    }
 }

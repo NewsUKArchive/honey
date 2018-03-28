@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
 import TextComponent from './TextComponent';
 
-const renderData = item =>
-  Object.keys(item).map(value => <TextComponent text={value} size={item[value].issueCount} key={item} />);
+const renderData = projects =>
+  projects.map(project => <TextComponent text={project.name} key={project.name} size={project.issues.totalCount} />);
 
 class GithubIssues extends React.Component {
   componentWillMount() {
@@ -13,7 +13,7 @@ class GithubIssues extends React.Component {
   }
 
   render() {
-    if (!this.props.issues) {
+    if (!this.props.projects) {
       return (
         <div>
             Loading Issues...
@@ -23,7 +23,7 @@ class GithubIssues extends React.Component {
     return (
       <div>
         {
-          renderData(this.props.issues)
+          renderData(this.props.projects)
         }
       </div>
     );
@@ -32,7 +32,7 @@ class GithubIssues extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    issues: state.github,
+    projects: state.github,
   };
 }
 
