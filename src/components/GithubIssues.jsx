@@ -3,6 +3,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
 import TextComponent from './TextComponent';
+import LoadingComponent from './LoadingComponent';
 
 const renderData = projects =>
   projects.map(project => <TextComponent text={project.name} key={project.name} size={project.issues.totalCount} />);
@@ -13,13 +14,8 @@ class GithubIssues extends React.Component {
   }
 
   render() {
-    if (!this.props.projects) {
-      return (
-        <div>
-            Loading Issues...
-        </div>
-      );
-    }
+    if (this.props.projects.length === 0) return <LoadingComponent/>;
+    
     return (
       <div>
         {
