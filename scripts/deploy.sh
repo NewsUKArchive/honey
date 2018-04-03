@@ -1,6 +1,6 @@
 #!/bin/bash
 REGION=us-east-1
-
+mkdir ~/.aws
 echo "[default]
 region = $REGION" > ~/.aws/config
 
