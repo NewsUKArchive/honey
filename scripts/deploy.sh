@@ -5,7 +5,7 @@ echo "[default]
 region = $REGION" > ~/.aws/config
 
 #Build the image
-docker build -t honey ../
+docker build --build-arg GITHUB_KEY=%GITHUB_KEY% -t honey ../
 
 #Tag the image
 docker tag honey:latest 512040659177.dkr.ecr.$REGION.amazonaws.com/honey:latest
