@@ -5,6 +5,8 @@ WORKDIR /src/app
 COPY package.json /src/app/
 RUN npm install
 COPY . /src/app
+ARG GITHUB_KEY
+ENV REACT_APP_GITHUB_KEY=$GITHUB_KEY
 RUN npm run build
 
 # Copy build to nginx for serving.
