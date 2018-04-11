@@ -7,8 +7,13 @@
         "owner": "newsuk",
         "repository": "dextrose"
     },
+    "fructose": {
+        "owner": "newsuk",
+        "repository": "fructose"
+    },
     "honey": {
         "owner": "newsuk",
         "repository": "honey"
     }
+    
 }

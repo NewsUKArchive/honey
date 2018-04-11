@@ -2,11 +2,29 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as githubActions from '../actions/githubActions';
-import TextComponent from './TextComponent';
 import LoadingComponent from './LoadingComponent';
+import RadarComponent from 'react-d3-radar';
 
-const renderData = projects =>
-  projects.map(project => <TextComponent text={project.name} key={project.name} size={project.issues.totalCount} />);
+let data = {
+  variables: [],
+  sets: [
+    {
+      key: 'Projects',
+      label: 'Total Issues',
+      values: {},
+    },
+  ],
+};
+
+const renderData = projects => {
+  projects.map(project => {
+    data.variables.push({key: project.name, label: project.name});
+    data.sets[0].values[project.name] = project.issues.totalCount;
+    return data}
+  );
+  console.log(data); 
+  return data;   
+}
 
 class GithubIssues extends React.Component {
   componentWillMount() {
@@ -18,9 +36,27 @@ class GithubIssues extends React.Component {
     
     return (
       <div>
-        {
-          renderData(this.props.projects)
-        }
+        <RadarComponent
+          width={600}
+          height={600}
+          padding={70}
+          domainMax={
+            Math.max.apply(
+              Math,this.props.projects.map(function(project) {
+                return project.issues.totalCount;
+              })
+            )
+          }
+          highlighted={null}
+          onHover={(point) => {
+            if (point) {
+              console.log('hovered over a data point');
+            } else {
+              console.log('not over anything');
+            }
+          }}
+          data={renderData(this.props.projects)}     
+        />
       </div>
     );
   }
