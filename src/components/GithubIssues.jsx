@@ -75,7 +75,8 @@ class GithubIssues extends React.Component {
 
 const myStyle = {
   display: 'flex',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  background: "radial-gradient(circle, white, #ffa500, #ffa500, #ffa500)"
 };
 
 function mapStateToProps(state) {
