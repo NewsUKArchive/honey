@@ -9,30 +9,39 @@ let data = {
   variables: [],
   sets: [
     {
-      key: 'Projects',
+      key: 'Total Issues',
       label: 'Total Issues',
+      values: {},
+    },
+    {
+      key: 'Open Issues',
+      label: 'Open Issues',
       values: {},
     },
   ],
 };
 
 const renderData = projects => {
-  projects.map(project => {
+  projects.totalIssues.map(project => {
     data.variables.push({key: project.name, label: project.name});
     data.sets[0].values[project.name] = project.issues.totalCount;
     return data}
   );
-  console.log(data); 
+  projects.openIssues.map(project => {
+    data.sets[1].values[project.name] = project.issues.totalCount;
+    return data}
+  );
   return data;   
 }
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    this.props.github.fetchIssues();
+    this.props.github.fetchTotalIssues();
+    this.props.github.fetchOpenIssues();    
   }
 
   render() {
-    if (this.props.projects.length === 0) return <LoadingComponent/>;
+    if (!this.props.projects.openIssues || !this.props.projects.totalIssues) return <LoadingComponent/>;
     
     return (
       <div>
@@ -42,7 +51,7 @@ class GithubIssues extends React.Component {
           padding={70}
           domainMax={
             Math.max.apply(
-              Math,this.props.projects.map(function(project) {
+              Math,this.props.projects.totalIssues.map(function(project) {
                 return project.issues.totalCount;
               })
             )
