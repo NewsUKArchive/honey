@@ -33,34 +33,42 @@ class GithubIssues extends React.Component {
 
   render() {
     if (this.props.projects.length === 0) return <LoadingComponent/>;
+  
+    var radar = <div style={myStyle}>
+        <RadarComponent 
+        width={600}
+        height={600}
+        padding={70}
+        domainMax={
+          Math.max.apply(
+            Math,this.props.projects.map(function(project) {
+              return project.issues.totalCount;
+            })
+          )
+        }
+        highlighted={null}
+        onHover={(point) => {
+          if (point) {
+            console.log('hovered over a data point');
+          } else {
+            console.log('not over anything');
+          }
+        }}
+        data={renderData(this.props.projects)}  
+      />
+    </div>
     
     return (
-      <div>
-        <RadarComponent
-          width={600}
-          height={600}
-          padding={70}
-          domainMax={
-            Math.max.apply(
-              Math,this.props.projects.map(function(project) {
-                return project.issues.totalCount;
-              })
-            )
-          }
-          highlighted={null}
-          onHover={(point) => {
-            if (point) {
-              console.log('hovered over a data point');
-            } else {
-              console.log('not over anything');
-            }
-          }}
-          data={renderData(this.props.projects)}     
-        />
-      </div>
+        radar
     );
   }
 }
+
+
+const myStyle = {
+  display: 'flex',
+  justifyContent: 'center'
+};
 
 function mapStateToProps(state) {
   return {
