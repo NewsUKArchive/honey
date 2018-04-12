@@ -43,8 +43,7 @@ class GithubIssues extends React.Component {
   render() {
     if (!this.props.projects.openIssues || !this.props.projects.totalIssues) return <LoadingComponent/>;
     
-    return (
-      <div>
+    var radar = <div style={myStyle}>
         <RadarComponent
           width={600}
           height={600}
@@ -67,9 +66,17 @@ class GithubIssues extends React.Component {
           data={renderData(this.props.projects)}     
         />
       </div>
+    return (
+      radar
     );
   }
 }
+
+
+const myStyle = {
+  display: 'flex',
+  justifyContent: 'center'
+};
 
 function mapStateToProps(state) {
   return {
