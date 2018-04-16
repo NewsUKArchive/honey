@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import React from 'react';
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import * as githubActions from '../actions/githubActions';
 import LoadingComponent from './LoadingComponent';
 import RadarComponent from 'react-d3-radar';
@@ -11,7 +11,9 @@ const renderData = projects => {
 
   projects.openIssues.forEach(project => {
     variables.push({key: project.name, label: project.name});
-    Object.assign(values, {[project.name]: project.issues.totalCount});
+    Object.assign(values, {
+      [project.name]: project.issues.totalCount
+    });
   });
 
   return {
@@ -20,36 +22,30 @@ const renderData = projects => {
       {
         key: 'Open Issues',
         label: 'Open Issues',
-        values,
-      },
-    ],
+        values
+      }
+    ]
   };
 }
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    this.props.github.fetchOpenIssues();    
+    this.props.github.fetchOpenIssues();
   }
 
   render() {
     if (!this.props.projects.openIssues) return <LoadingComponent/>;
     
-    var radar = <div style={myStyle}>
+    return (
+      <div style={myStyle}>
         <RadarComponent
           width={600}
           height={600}
           padding={70}
-          domainMax={
-            Math.max.apply(
-              Math,this.props.projects.openIssues.map((project) => project.issues.totalCount)
-            )
-          }
+          domainMax={Math.max(...this.props.projects.openIssues.map((project) => project.issues.totalCount))}
           highlighted={null}
-          data={renderData(this.props.projects)}     
-        />
+          data={renderData(this.props.projects)}/>
       </div>
-    return (
-      radar
     );
   }
 }
@@ -61,18 +57,13 @@ const myStyle = {
 };
 
 function mapStateToProps(state) {
-  return {
-    projects: state.github,
-  };
+  return {projects: state.github};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    github: bindActionCreators(githubActions, dispatch),
+    github: bindActionCreators(githubActions, dispatch)
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(GithubIssues);
+export default connect(mapStateToProps, mapDispatchToProps,)(GithubIssues);

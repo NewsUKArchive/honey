@@ -5,8 +5,7 @@ const uri = 'https://api.github.com/graphql';
 const apolloFetch = createApolloFetch({uri});
 
 const parseIssues = (project) => (project && project.data && project.data.repository && project.data.repository.issues)
-  ? project.data.repository.issues
-  : { totalCount: 0 };
+  ? project.data.repository.issues : { totalCount: 0 };
 
 apolloFetch.use(({
   options
@@ -23,7 +22,7 @@ apolloFetch.use(({
 const totalIssuesGetRequest = project => new Promise((resolve) => {
   apolloFetch({
     query: `query IssueCount($owner: String!, $repositoryName: String!) {
-        repository(owner: $owner, name:$repositoryName) {
+        repository(owner: $owner, name: $repositoryName) {
           issues() {
             totalCount
           }
@@ -34,27 +33,23 @@ const totalIssuesGetRequest = project => new Promise((resolve) => {
       owner: project.owner
     }
   }).then((response) => {
-    if(response.errors) console.error(response.errors);
-    resolve({
-      name: project.name,
-      repository: project.repository,
-      issues: parseIssues(response),
-    });
-  }).catch(err => {
-    console.error(`Failed to get the total issues for ${project.name}. Error: `, err);
-    resolve({
-      name: project.name,
-      repository: project.repository,
-      issues:  0,
-    });
-  });
+    if (response.errors) throw response;
+    return response;
+  }).catch(badResponse => {
+    console.error(`Failed to get the open issues for ${project.name}. Error: `, badResponse.errors);
+    return badResponse;
+  }).then(response => resolve({
+    name: project.name,
+    repository: project.repository,
+    issues: parseIssues(response)
+  }));
 });
 
 const openIssuesGetRequest = project => new Promise((resolve) => {
   apolloFetch({
     query: `query IssueCount($owner: String!, $repositoryName: String!) {
-        repository(owner: $owner, name:$repositoryName) {
-          issues(states:OPEN) {
+        repository(owner: $owner, name: $repositoryName) {
+          issues(states: OPEN) {
             totalCount
           }
         }
@@ -64,20 +59,16 @@ const openIssuesGetRequest = project => new Promise((resolve) => {
       owner: project.owner
     }
   }).then((response) => {
-    if(response.errors) console.error(response.errors);    
-    resolve({
-      name: project.name,
-      repository: project.repository,
-      issues:  parseIssues(response),
-    });
-  }).catch(err => {
-    console.error(`Failed to get the open issues for ${project.name}. Error: `, err);
-    resolve({
-      name: project.name,
-      repository: project.repository,
-      issues:  0,
-    });
-  });
+    if (response.errors) throw response;
+    return response;
+  }).catch(badResponse => {
+    console.error(`Failed to get the open issues for ${project.name}. Error: `, badResponse.errors);
+    return badResponse;
+  }).then(response => resolve({
+    name: project.name,
+    repository: project.repository,
+    issues: parseIssues(response)
+  }));
 });
 
 const getTotalIssueCountFor = projects => projects.map(project => totalIssuesGetRequest(project));
