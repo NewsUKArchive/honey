@@ -28,12 +28,11 @@ const renderData = projects => {
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    // this.props.github.fetchTotalIssues();
     this.props.github.fetchOpenIssues();    
   }
 
   render() {
-    if (!this.props.projects.openIssues /*|| !this.props.projects.totalIssues*/) return <LoadingComponent/>;
+    if (!this.props.projects.openIssues) return <LoadingComponent/>;
     
     var radar = <div style={myStyle}>
         <RadarComponent
