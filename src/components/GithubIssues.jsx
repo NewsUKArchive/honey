@@ -21,6 +21,7 @@ let data = {
   ],
 };
 
+
 const renderData = projects => {
   projects.totalIssues.map(project => {
     data.variables.push({key: project.name, label: project.name});
@@ -50,19 +51,12 @@ class GithubIssues extends React.Component {
           padding={70}
           domainMax={
             Math.max.apply(
-              Math,this.props.projects.totalIssues.map(function(project) {
+              Math,this.props.projects.totalIssues.map((project) => {
                 return project.issues.totalCount;
               })
             )
           }
           highlighted={null}
-          onHover={(point) => {
-            if (point) {
-              console.log('hovered over a data point');
-            } else {
-              console.log('not over anything');
-            }
-          }}
           data={renderData(this.props.projects)}     
         />
       </div>
@@ -71,7 +65,6 @@ class GithubIssues extends React.Component {
     );
   }
 }
-
 
 const myStyle = {
   display: 'flex',
