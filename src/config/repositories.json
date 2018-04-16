@@ -1,18 +1,27 @@
-{
-    "times-components": {
+[
+    {
+        "name": "Times Components",
         "owner": "newsuk",
         "repository": "times-components"
     },
-    "dextrose": {
+    {
+        "name": "Render",
+        "owner": "newsuk",
+        "repository": "cps-content-render"
+    },
+    {
+        "name": "Dextrose",
         "owner": "newsuk",
         "repository": "dextrose"
     },
-    "fructose": {
+    {
+        "name": "Fructose",
         "owner": "newsuk",
         "repository": "fructose"
     },
-    "honey": {
+    {
+        "name": "Honey",
         "owner": "newsuk",
         "repository": "honey"
     }
-}
+]

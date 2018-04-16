@@ -26,12 +26,14 @@ const renderData = projects => {
   projects.totalIssues.map(project => {
     data.variables.push({key: project.name, label: project.name});
     data.sets[0].values[project.name] = project.issues.totalCount;
-    return data}
-  );
+    return data;
+  });
+
   projects.openIssues.map(project => {
     data.sets[1].values[project.name] = project.issues.totalCount;
-    return data}
-  );
+    return data;
+  });
+
   return data;   
 }
 
@@ -51,9 +53,7 @@ class GithubIssues extends React.Component {
           padding={70}
           domainMax={
             Math.max.apply(
-              Math,this.props.projects.totalIssues.map((project) => {
-                return project.issues.totalCount;
-              })
+              Math,this.props.projects.totalIssues.map((project) => project.issues.totalCount)
             )
           }
           highlighted={null}
