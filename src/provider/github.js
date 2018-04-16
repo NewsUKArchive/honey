@@ -14,7 +14,7 @@ apolloFetch.use(({ options }, next) => {
   next();
 });
 
-const getRequest = project =>
+const totalIssuesGetRequest = project =>
   new Promise((resolve) => {
     apolloFetch({
       query: `query IssueCount($owner: String!, $repositoryName: String!) {
@@ -35,7 +35,31 @@ const getRequest = project =>
       .catch(err => resolve(err));
   });
 
-const getIssueCountFor = projects =>
-  Object.values(projects).map(project => (getRequest(project)));
+const openIssuesGetRequest = project =>
+  new Promise((resolve) => {
+    apolloFetch({
+      query: `query IssueCount($owner: String!, $repositoryName: String!) {
+        repository(owner: $owner, name:$repositoryName) {
+          issues(states:OPEN) {
+            totalCount
+          }
+        }
+      }`,
+      variables: {
+        repositoryName: project.repository,
+        owner: project.owner,
+      },
+    })
+      .then((response) => {
+        resolve({ name: project.repository, issues: response.data.repository.issues });
+      })
+      .catch(err => resolve(err));
+  });
 
-export default { getIssueCountFor };
+const getTotalIssueCountFor = projects =>
+  Object.values(projects).map(project => (totalIssuesGetRequest(project)));
+
+const getOpenIssueCountFor = projects =>
+  Object.values(projects).map(project => (openIssuesGetRequest(project)));
+
+export default { getTotalIssueCountFor, getOpenIssueCountFor };
