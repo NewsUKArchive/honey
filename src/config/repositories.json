@@ -1,13 +1,43 @@
 [
     {
+        "name": "Render",
+        "owner": "newsuk",
+        "repository": "cps-content-render"
+    },
+    {
         "name": "Times Components",
         "owner": "newsuk",
         "repository": "times-components"
     },
     {
-        "name": "Render",
+        "name": "Times Public API",
         "owner": "newsuk",
-        "repository": "cps-content-render"
+        "repository": "times-public-api"
+    },
+    {
+        "name": "Times Saving API",
+        "owner": "newsuk",
+        "repository": "times-saving-api"
+    },
+    {
+        "name": "Ingest",
+        "owner": "newsuk",
+        "repository": "cps-content-ingest"
+    },
+    {
+        "name": "Android",
+        "owner": "newsuk",
+        "repository": "nu-projectd-times-smartphone-android"
+    },
+    {
+        "name": "iOS",
+        "owner": "newsuk",
+        "repository": "nu-digital-projectd-times-smartphone-ios"
+    },
+    {
+        "name": "Smartphone API",
+        "owner": "newsuk",
+        "repository": "nu-tnl-smartphone-api"
     },
     {
         "name": "Dextrose",
@@ -18,10 +48,5 @@
         "name": "Fructose",
         "owner": "newsuk",
         "repository": "fructose"
-    },
-    {
-        "name": "Honey",
-        "owner": "newsuk",
-        "repository": "honey"
     }
 ]

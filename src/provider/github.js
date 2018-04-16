@@ -34,6 +34,7 @@ const totalIssuesGetRequest = project => new Promise((resolve) => {
       owner: project.owner
     }
   }).then((response) => {
+    if(response.errors) console.error(response.errors);
     resolve({
       name: project.name,
       repository: project.repository,
@@ -63,6 +64,7 @@ const openIssuesGetRequest = project => new Promise((resolve) => {
       owner: project.owner
     }
   }).then((response) => {
+    if(response.errors) console.error(response.errors);    
     resolve({
       name: project.name,
       repository: project.repository,

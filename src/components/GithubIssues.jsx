@@ -5,46 +5,35 @@ import * as githubActions from '../actions/githubActions';
 import LoadingComponent from './LoadingComponent';
 import RadarComponent from 'react-d3-radar';
 
-let data = {
-  variables: [],
-  sets: [
-    {
-      key: 'Total Issues',
-      label: 'Total Issues',
-      values: {},
-    },
-    {
-      key: 'Open Issues',
-      label: 'Open Issues',
-      values: {},
-    },
-  ],
-};
-
-
 const renderData = projects => {
-  projects.totalIssues.map(project => {
-    data.variables.push({key: project.name, label: project.name});
-    data.sets[0].values[project.name] = project.issues.totalCount;
-    return data;
+  const variables = [];
+  const values = {};
+
+  projects.openIssues.forEach(project => {
+    variables.push({key: project.name, label: project.name});
+    Object.assign(values, {[project.name]: project.issues.totalCount});
   });
 
-  projects.openIssues.map(project => {
-    data.sets[1].values[project.name] = project.issues.totalCount;
-    return data;
-  });
-
-  return data;   
+  return {
+    variables,
+    sets: [
+      {
+        key: 'Open Issues',
+        label: 'Open Issues',
+        values,
+      },
+    ],
+  };
 }
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    this.props.github.fetchTotalIssues();
+    // this.props.github.fetchTotalIssues();
     this.props.github.fetchOpenIssues();    
   }
 
   render() {
-    if (!this.props.projects.openIssues || !this.props.projects.totalIssues) return <LoadingComponent/>;
+    if (!this.props.projects.openIssues /*|| !this.props.projects.totalIssues*/) return <LoadingComponent/>;
     
     var radar = <div style={myStyle}>
         <RadarComponent
@@ -53,7 +42,7 @@ class GithubIssues extends React.Component {
           padding={70}
           domainMax={
             Math.max.apply(
-              Math,this.props.projects.totalIssues.map((project) => project.issues.totalCount)
+              Math,this.props.projects.openIssues.map((project) => project.issues.totalCount)
             )
           }
           highlighted={null}
