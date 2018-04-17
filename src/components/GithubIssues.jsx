@@ -1,20 +1,16 @@
 import {connect} from 'react-redux';
 import React from 'react';
 import {bindActionCreators} from 'redux';
-import * as githubActions from '../actions/githubActions';
+import {fetchOpenIssues} from '../actions/githubActions';
 import LoadingComponent from './LoadingComponent';
 import RadarComponent from 'react-d3-radar';
 
 const renderData = projects => {
-  const variables = [];
-  const values = {};
-
-  projects.openIssues.forEach(project => {
-    variables.push({key: project.name, label: project.name});
-    Object.assign(values, {
-      [project.name]: project.issues.totalCount
-    });
-  });
+  const variables = projects.openIssues.map(({name}) => ({key: name, label: name}));
+  const values = projects.openIssues.reduce((result, {name, issues}) => ({
+    ...result, 
+    [name]: issues.totalCount
+  }), {});
 
   return {
     variables,
@@ -26,11 +22,11 @@ const renderData = projects => {
       }
     ]
   };
-}
+};
 
 class GithubIssues extends React.Component {
   componentWillMount() {
-    this.props.github.fetchOpenIssues();
+    this.props.fetchOpenIssues();
   }
 
   render() {
@@ -62,7 +58,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    github: bindActionCreators(githubActions, dispatch)
+    fetchOpenIssues: bindActionCreators(fetchOpenIssues, dispatch)
   };
 }
 
