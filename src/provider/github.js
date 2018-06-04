@@ -47,8 +47,14 @@ const totalIssuesGetRequest = project => apolloFetch({
 const openIssuesGetRequest = project => apolloFetch({
   query: `query IssueCount($owner: String!, $repositoryName: String!) {
         repository(owner: $owner, name: $repositoryName) {
-          issues(states: OPEN) {
-            totalCount
+          issues(first: 30, states: OPEN) {
+            totalCount,
+            edges {
+              node {
+                title,
+                url
+              }
+            }
           }
         }
       }`,

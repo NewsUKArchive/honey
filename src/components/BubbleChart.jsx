@@ -1,21 +1,14 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import * as d3 from 'd3';
 
 export default class BubbleChart extends React.Component {
-  // static propTypes = {
-  //     data: React.PropTypes.array,
-  //     width: React.PropTypes.number,
-  //     height: React.PropTypes.number,
-  //     useLabels: React.PropTypes.bool
-  // };
 
   static defaultProps = {
       data: [],
-      useLabels: false,
-      width: 600,
-      height: 400
+      useLabels: true,
+      width: 800,
+      height: 800
   };
 
   constructor(props) {
@@ -60,6 +53,10 @@ export default class BubbleChart extends React.Component {
       this.mounted = false;
   }
 
+  handleClick = project => {
+    console.log(`issues for ${project.key}: ${project.issues}`)
+  }
+
   radiusScale = value => {
       const fx = d3
           .scaleSqrt()
@@ -79,7 +76,7 @@ export default class BubbleChart extends React.Component {
           .force(
               "collide",
               d3.forceCollide(d => {
-                  return this.radiusScale(d.v) + 2;
+                  return (this.radiusScale(d.v) + 2) * 3;
               })
           )
           .on("tick", () => {
@@ -114,7 +111,7 @@ export default class BubbleChart extends React.Component {
               return (
                   <circle
                       key={index}
-                      r={this.radiusScale(item.v)}
+                      r={this.radiusScale(item.v) * 3}
                       cx={item.x}
                       cy={item.y}
                       fill={color(item.v)}
@@ -138,6 +135,7 @@ export default class BubbleChart extends React.Component {
       const texts = _.map(data, (item, index) => {
           const props = this.props;
           const fontSize = this.radiusScale(item.v) / 2;
+          
           return (
               <g
                   key={index}
@@ -145,10 +143,11 @@ export default class BubbleChart extends React.Component {
                       item.x}, ${props.height / 2 + item.y})`}
               >
                   <circle
-                      r={this.radiusScale(item.v)}
+                      r={this.radiusScale(item.v) * 3}
                       fill={color(item.v)}
                       stroke={d3.rgb(color(item.v)).brighter(2)}
                       strokeWidth="2"
+                      onClick={() => this.handleClick(item)}                      
                   />
                   <text
                       dy="6"
@@ -157,7 +156,8 @@ export default class BubbleChart extends React.Component {
                       fontSize={`${fontSize}px`}
                       fontWeight="bold"
                   >
-                      {item.v}
+                      {`${item.key}:\n
+                      ${item.v}`}
                   </text>
               </g>
           );
@@ -178,14 +178,3 @@ export default class BubbleChart extends React.Component {
       return <div>Loading</div>;
   }
 }
-
-// const rawdata = _.map(_.range(24), () => {
-//   return {
-//       v: _.random(10, 100)
-//   };
-// });
-
-// ReactDOM.render(
-//   <BubbleChart useLabels data={rawdata} />,
-//   document.getElementById("charts")
-// );
