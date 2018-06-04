@@ -3,7 +3,9 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {fetchOpenIssues} from '../actions/githubActions';
 import LoadingComponent from './LoadingComponent';
-import RadarComponent from 'react-d3-radar';
+import BubbleChart from './BubbleChart';
+import _ from 'lodash';
+
 
 const renderData = projects => {
   const variables = projects.openIssues.map(({name}) => ({key: name, label: name}));
@@ -24,6 +26,12 @@ const renderData = projects => {
   };
 };
 
+const rawdata = _.map(_.range(24), () => {
+  return {
+      v: _.random(10, 100)
+  };
+});
+
 class GithubIssues extends React.Component {
   componentWillMount() {
     this.props.fetchOpenIssues();
@@ -31,16 +39,19 @@ class GithubIssues extends React.Component {
 
   render() {
     if (!this.props.projects.openIssues) return <LoadingComponent/>;
-    
+    console.log(rawdata);
+    console.log(this.props.projects);
+    console.log(renderData(this.props.projects));
     return (
       <div style={myStyle}>
-        <RadarComponent
+      <BubbleChart useLabels data={rawdata} />
+        {/* <RadarComponent
           width={600}
           height={600}
           padding={70}
           domainMax={Math.max(...this.props.projects.openIssues.map((project) => project.issues.totalCount))}
           highlighted={null}
-          data={renderData(this.props.projects)}/>
+          data={renderData(this.props.projects)}/> */}
       </div>
     );
   }
