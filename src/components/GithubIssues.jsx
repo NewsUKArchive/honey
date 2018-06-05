@@ -17,7 +17,6 @@ class GithubIssues extends React.Component {
 
   render() {
     if (!this.props.projects.openIssues) return <LoadingComponent/>;
-    console.log(RenderData(this.props.projects))
     return (
       <div style={myStyle}>
         <BubbleChart useLabels display='flex' data={RenderData(this.props.projects)} />

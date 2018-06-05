@@ -1,6 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Modal extends React.Component {
+
+  static propTypes = {
+		isModalOpen: PropTypes.bool.isRequired,
+		closeModal: PropTypes.func.isRequired,
+		style: PropTypes.shape({
+			modal: PropTypes.object,
+			overlay: PropTypes.object
+		})
+	};
 
   constructor(props) {
 		super(props);
@@ -12,7 +22,6 @@ export default class Modal extends React.Component {
 			width: "100%",
 			height: "100%",
 			overflow: "auto",
-			height: "100%",
 			zIndex: 1
 		};
 

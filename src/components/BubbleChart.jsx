@@ -2,8 +2,16 @@ import React from 'react';
 import _ from 'lodash';
 import * as d3 from 'd3';
 import Modal from './IssueModal';
+import PropTypes from 'prop-types';
 
 export default class BubbleChart extends React.Component {
+
+  static propTypes = {
+    data: PropTypes.array,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    useLabels: PropTypes.bool
+};
 
   static defaultProps = {
     data: [],
@@ -59,7 +67,6 @@ export default class BubbleChart extends React.Component {
   }
 
   handleClick = project => {
-    console.log(`${project}`)
     this.setState({
       isModalOpen: true,
       modalData: project
@@ -223,10 +230,10 @@ export default class BubbleChart extends React.Component {
             closeModal={this.closeModal}
             style={modalStyle}>
 
-            <text>{`Issues for ${this.state.modalData.key}:`}</text>
+            <div>{`Issues for ${this.state.modalData.key}:`}</div>
             <ul>
               {this.state.modalData.issues.map(({ node }) => {
-                return <li><a href={node.url}>{node.title}</a></li>
+                return <li key={node.title}><a href={node.url}>{node.title}</a></li>
               })}
             </ul>
             <button style={{
