@@ -1,10 +1,11 @@
 import React from 'react';
-import GithubIssues from './components/GithubIssues';
+// import GithubIssues from './components/GithubIssues';
+import GithubReleases from './components/GithubReleases';
 
 const App = () => (
   <div className="app" style={backgroundStyle}>
     <h1 style={headingStyle}>HONEY</h1>
-    <GithubIssues />
+    <GithubReleases />
   </div>
 );
 

@@ -7,6 +7,9 @@ const apolloFetch = createApolloFetch({uri});
 const parseIssues = (project) => (project && project.data && project.data.repository && project.data.repository.issues)
   ? project.data.repository.issues : {totalCount: 0};
 
+const parseReleases = (project) => (project && project.data && project.data.repository && project.data.repository.releases)
+  ? project.data.repository.releases.nodes : {isPrerelease: 0};
+
 apolloFetch.use(({
   options
 }, next) => {
@@ -69,10 +72,40 @@ const openIssuesGetRequest = project => apolloFetch({
   issues: parseIssues(response),
 }));
 
+const latestPreReleaseGetRequest = project => apolloFetch({
+  query: `query ($owner: String!, $repositoryName: String!) {
+    repository(owner: $owner, name: $repositoryName) {
+      releases(last: 4) {
+        nodes() {
+          isPrerelease
+          description
+        }
+      }
+    }
+  }`,
+  variables: {
+    repositoryName: project.repository,
+    owner: project.owner
+  }
+}).then((response) => {
+  if (response.errors)
+    throw response;
+  return response;
+}).catch(badResponse => {
+  console.error(`Failed to get the open issues for ${project.name}. Error: `, badResponse.errors);
+  return badResponse;
+}).then(response => ({
+  name: project.name,
+  repository: project.repository,
+  releases: parseReleases(response),
+}));
+
 const getTotalIssueCountFor = projects => projects.map(project => totalIssuesGetRequest(project));
 const getOpenIssueCountFor = projects => projects.map(project => openIssuesGetRequest(project));
+const getLatestPreReleaseCountFor = projects => projects.map(project => latestPreReleaseGetRequest(project));
 
 export default {
   getTotalIssueCountFor,
-  getOpenIssueCountFor
+  getOpenIssueCountFor,
+  getLatestPreReleaseCountFor
 };
