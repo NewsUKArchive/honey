@@ -1,5 +1,4 @@
 import React from 'react';
-// import GithubIssues from './components/GithubIssues';
 import GithubReleases from './components/GithubReleases';
 
 const App = () => (
