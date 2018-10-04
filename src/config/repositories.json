@@ -15,11 +15,6 @@
         "repository": "times-public-api"
     },
     {
-        "name": "Times Saving API",
-        "owner": "newsuk",
-        "repository": "times-saving-api"
-    },
-    {
         "name": "Android",
         "owner": "newsuk",
         "repository": "nu-projectd-times-smartphone-android"

@@ -5777,6 +5777,14 @@ react-center@^1.1.1:
   dependencies:
     inline-style-prefixer "^0.6.7"
 
+react-collapsible-component@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-collapsible-component/-/react-collapsible-component-1.1.0.tgz#f0459eaa7871ae5311230fe6bd6230bd61903d41"
+  dependencies:
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-dom "^16.2.0"
+
 react-d3-radar@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/react-d3-radar/-/react-d3-radar-0.2.6.tgz#4d24218899e37112a4e6db64c48f2030b3b0607e"
