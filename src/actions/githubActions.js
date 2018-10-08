@@ -24,7 +24,7 @@ export function fetchOpenIssues() {
 export function fetchReleases() {
   return (dispatch) => {
     Promise.all(github.getLatestPreReleaseCountFor(repositories))
-      .then(payload => dispatch({ type: GITHUB_FETCH_RELEASES, payload}))
-      .catch(error => dispatch({type: GITHUB_FETCH_RELEASES, payload: error, error: true}));
+      .then(payload => dispatch({ type: GITHUB_FETCH_RELEASES, payload }))
+      .catch(error => dispatch({ type: GITHUB_FETCH_RELEASES, payload: error, error: true }));
   };
 }
