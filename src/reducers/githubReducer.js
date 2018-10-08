@@ -11,8 +11,6 @@ export default function github(state = initialState.github, action) {
       return Object.assign({}, state, { openIssues: payload });
     case GITHUB_FETCH_RELEASES:
       return Object.assign({}, state, { totalReleases: payload });
-    case RELEASE_NOTE_COLLAPSED:
-      return Object.assign({}, state, action.collapsedState);    
     default:
       return state;
   }
