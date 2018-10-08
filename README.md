@@ -1,7 +1,8 @@
-# Honey
-Honey aims to display Github issues for multiple projects on a single dashboard.
+]# Honey
+Honey aims to display Github releases for multiple projects on a single dashboard.
 
-![image](https://user-images.githubusercontent.com/23698167/40119286-2d7b44de-5914-11e8-8b03-8b01a0853dbd.png)
+<img width="1153" alt="screen shot 2018-10-08 at 10 45 30" src="https://user-images.githubusercontent.com/12137814/46602374-e56a3880-cae7-11e8-9d2f-e5289cbfc0b8.png">
+
 
 ## Configuration
 To display more / different projects on the dashboard you can update the `config/repositories` json file.
