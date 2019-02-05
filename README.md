@@ -1,11 +1,17 @@
-# Honey
+# Honey 🍯
+
+### Brought to you by The Times Tooling team  🛠
+
+### Concept
 Honey aims to display Github releases for multiple projects on a single dashboard.
 
-<img width="1153" alt="screen shot 2018-10-08 at 10 45 30" src="https://user-images.githubusercontent.com/12137814/46602374-e56a3880-cae7-11e8-9d2f-e5289cbfc0b8.png">
+Provide intelligence to all stakeholders with the transparency they need to determine a project’s overall health at every stage
 
+Encourage project leaders to view different applications and services in their full context. 
+You can view what is being released, what is being worked on and make sure that what has been released has passed particular checkpoints.
 
 ## Configuration
-To display more / different projects on the dashboard you can update the `config/repositories` json file.
+To display different projects on the dashboard update `config/repositories` json file.
 
 The structure of a config entry consists of the following:
 

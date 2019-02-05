@@ -8,13 +8,13 @@ region = $REGION" > ~/.aws/config
 docker build --build-arg GITHUB_KEY=%GITHUB_KEY% -t honey ../
 
 #Tag the image
-docker tag honey:latest 512040659177.dkr.ecr.$REGION.amazonaws.com/honey:latest
+docker tag honey:latest $ACCOUNTID.dkr.ecr.$REGION.amazonaws.com/honey:latest
 
 #Login
 eval $(aws ecr get-login --no-include-email --region $REGION)
 
 #Push the image
-docker push 512040659177.dkr.ecr.$REGION.amazonaws.com/honey:latest
+docker push $ACCOUNTID.dkr.ecr.$REGION.amazonaws.com/honey:latest
 
 #reset the task to pull latest image
 export CLUSTER_NAME=honey
